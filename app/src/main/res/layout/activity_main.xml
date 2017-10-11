@@ -1,18 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.danil.androidalarmclock.MainActivity">
+    android:orientation="vertical">
+
+    <TimePicker
+        android:id="@+id/alarmTimePicker"
+        android:layout_width="350dp"
+        android:layout_height="372dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Включить"
+        android:id="@+id/start_alarm"
+        android:onClick="startTimer"
+        android:layout_below="@+id/alarmTimePicker"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="63dp" />
+
+    <Button
+        android:id="@+id/stop_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/alarmTimePicker"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="63dp"
+        android:onClick="cancelTimer"
+        android:layout_alignParentRight="true"
+        android:text="Выключить" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Установите время на будильнике"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="bottom"
+        android:layout_marginBottom="25dp"
+        android:id="@+id/alarmText" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
