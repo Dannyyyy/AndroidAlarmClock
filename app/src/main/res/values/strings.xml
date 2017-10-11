@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">AndroidAlarmClock</string>
+    <string name="app_name">Будильник</string>
+    <string name="setup_alarm_clock_btn_text">Включить</string>
+    <string name="cancel_alarm_clock_btn_text">Выключить</string>
+    <string name="alarm_clock_text_view">Установите время на будильнике</string>
 </resources>
