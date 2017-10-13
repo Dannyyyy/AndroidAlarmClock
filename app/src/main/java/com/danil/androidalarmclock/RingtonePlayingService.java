@@ -30,14 +30,14 @@ public class RingtonePlayingService extends Service {
 
         final NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        Intent intent1 = new Intent(this.getApplicationContext(), MainActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, 0);
+        Intent activityIntent = new Intent(this.getApplicationContext(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, activityIntent, 0);
 
         Notification notification  = new Notification.Builder(this)
                 .setContentTitle("Подъем!!!")
                 .setContentText("Пора учиться,...!!!")
                 .setSmallIcon(R.drawable.notification_icon)
-                .setContentIntent(pIntent)
+                .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .build();
         notification.ledARGB = Color.BLUE;

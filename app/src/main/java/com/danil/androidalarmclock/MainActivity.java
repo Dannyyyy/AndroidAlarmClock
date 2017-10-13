@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private TimePicker alarmTimePicker;
     private TextView alarmTextView;
     private Button stopAlarmClockBtn;
+    private Button startAlarmClockBtn;
 
     private int hour = -1;
     private int minute = -1;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         alarmTimePicker = (TimePicker) findViewById(R.id.alarmTimePicker);
         alarmTimePicker.setIs24HourView(true);
 
-        Button startAlarmClockBtn = (Button) findViewById(R.id.start_alarm);
+        startAlarmClockBtn = (Button) findViewById(R.id.start_alarm);
         startAlarmClockBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -66,7 +67,12 @@ public class MainActivity extends AppCompatActivity {
                 calendar.set(Calendar.MINUTE, minute);
                 myIntent.putExtra("extra", "yes");
                 pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                long time=(calendar.getTimeInMillis()-(calendar.getTimeInMillis()%60000));
+                if(System.currentTimeMillis()>time)
+                {
+                    time += (1000*60*60*24);
+                }
+                alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
                 alarmClockInstalled();
             }
         });
@@ -77,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                hour  = minute = -1;
+                hour = minute = -1;
                 myIntent.putExtra("extra", "no");
                 sendBroadcast(myIntent);
                 alarmManager.cancel(pendingIntent);
@@ -93,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void alarmClockInstalled()
     {
+        startAlarmClockBtn.setEnabled(false);
         stopAlarmClockBtn.setEnabled(true);
         String hourString = String.valueOf(hour);
         String minuteString = String.valueOf(minute);
@@ -100,11 +107,16 @@ public class MainActivity extends AppCompatActivity {
         {
             minuteString = "0".concat(minuteString);
         }
+        if(hour < 10)
+        {
+            hourString = "0".concat(hourString);
+        }
         setAlarmClockTextView("Будильник установлен на " + hourString + ":" + minuteString);
     }
 
     private void alarmClockNotInstalled()
     {
+        startAlarmClockBtn.setEnabled(true);
         stopAlarmClockBtn.setEnabled(false);
         setAlarmClockTextView("Установите время на будильнике");
     }
@@ -123,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
         // Запоминаем данные
         SharedPreferences.Editor editor = settingPreferences.edit();
         editor.putInt(APP_PREFERENCES_HOUR, hour);
