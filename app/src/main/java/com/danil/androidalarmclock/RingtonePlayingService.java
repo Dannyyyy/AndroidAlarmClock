@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -33,12 +34,16 @@ public class RingtonePlayingService extends Service {
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, 0);
 
         Notification notification  = new Notification.Builder(this)
-                .setContentTitle("Будильник" + "!")
-                .setContentText("Жми, жми,...!")
-                .setSmallIcon(R.drawable.alarm_clock_icon)
+                .setContentTitle("Подъем!!!")
+                .setContentText("Пора учиться,...!!!")
+                .setSmallIcon(R.drawable.notification_icon)
                 .setContentIntent(pIntent)
                 .setAutoCancel(true)
                 .build();
+        notification.ledARGB = Color.BLUE;
+        notification.ledOffMS = 1000;
+        notification.ledOnMS = 1000;
+        notification.flags = notification.flags | Notification.FLAG_SHOW_LIGHTS;
 
         String state = intent.getStringExtra("extra");
 
@@ -53,7 +58,6 @@ public class RingtonePlayingService extends Service {
             default:
                 startId = 0;
         }
-
 
         if(!this.isInstalled && startId == 1)
         {
