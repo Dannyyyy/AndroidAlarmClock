@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 minute = alarmTimePicker.getMinute();
                 calendar.set(Calendar.HOUR_OF_DAY, hour);
                 calendar.set(Calendar.MINUTE, minute);
+                calendar.set(Calendar.SECOND, 0);
                 myIntent.putExtra("extra", "yes");
                 pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 long time=(calendar.getTimeInMillis()-(calendar.getTimeInMillis()%60000));
