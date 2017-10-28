@@ -25,15 +25,11 @@ public class RingtonePlayingService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
-    {
-
+    public int onStartCommand(Intent intent, int flags, int startId) {
         final NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        Intent activityIntent = new Intent(this.getApplicationContext(), MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, activityIntent, 0);
-
-        Notification notification  = new Notification.Builder(this)
+        final Intent activityIntent = new Intent(this.getApplicationContext(), MainActivity.class);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, activityIntent, 0);
+        final Notification notification  = new Notification.Builder(this)
                 .setContentTitle("Подъем!!!")
                 .setContentText("Пора учиться,...!!!")
                 .setSmallIcon(R.drawable.notification_icon)
@@ -45,7 +41,7 @@ public class RingtonePlayingService extends Service {
         notification.ledOnMS = 1000;
         notification.flags = notification.flags | Notification.FLAG_SHOW_LIGHTS;
 
-        String state = intent.getStringExtra("extra");
+        final String state = intent.getStringExtra("extra");
 
         assert state != null;
         switch (state) {
@@ -59,12 +55,10 @@ public class RingtonePlayingService extends Service {
                 startId = 0;
         }
 
-        if(!this.isInstalled && startId == 1)
-        {
+        if(!this.isInstalled && startId == 1) {
             Random random = new Random();
             int number = random.nextInt(5) + 1;
-            switch(number)
-            {
+            switch(number) {
                 case 1: mediaPlayer = MediaPlayer.create(this, R.raw.track_1);
                     break;
                 case 2: mediaPlayer = MediaPlayer.create(this, R.raw.track_2);
@@ -84,17 +78,13 @@ public class RingtonePlayingService extends Service {
             this.isInstalled = true;
             this.startId = 0;
         }
-        else
-        {
-            if (!this.isInstalled && startId == 0)
-            {
+        else {
+            if (!this.isInstalled && startId == 0) {
                 this.isInstalled = false;
                 this.startId = 0;
             }
-            else
-            {
-                if (this.isInstalled && startId == 1)
-                {
+            else {
+                if (this.isInstalled && startId == 1) {
                     this.isInstalled = true;
                     this.startId = 0;
                 } else {

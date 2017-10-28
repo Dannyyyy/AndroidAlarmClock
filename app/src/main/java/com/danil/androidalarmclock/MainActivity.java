@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         this.context = this;
         alarmTextView = (TextView) findViewById(R.id.alarmText);
 
-        final Intent myIntent = new Intent(this.context, AlarmReceiver.class);
+        final Intent alarmIntent = new Intent(this.context, AlarmReceiver.class);
 
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
@@ -66,11 +66,11 @@ public class MainActivity extends AppCompatActivity {
                 calendar.set(Calendar.HOUR_OF_DAY, hour);
                 calendar.set(Calendar.MINUTE, minute);
                 calendar.set(Calendar.SECOND, 0);
-                myIntent.putExtra("extra", "yes");
-                pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                calendar.set(Calendar.MILLISECOND, 0);
+                alarmIntent.putExtra("extra", "yes");
+                pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 long time=(calendar.getTimeInMillis()-(calendar.getTimeInMillis()%60000));
-                if(System.currentTimeMillis()>time)
-                {
+                if(System.currentTimeMillis()>time) {
                     time += (1000*60*60*24);
                 }
                 alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
@@ -79,14 +79,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         stopAlarmClockBtn = (Button) findViewById(R.id.stop_alarm);
-        stopAlarmClockBtn.setOnClickListener(new View.OnClickListener()
-        {
+        stopAlarmClockBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 hour = minute = -1;
-                myIntent.putExtra("extra", "no");
-                sendBroadcast(myIntent);
+                alarmIntent.putExtra("extra", "no");
+                sendBroadcast(alarmIntent);
                 alarmManager.cancel(pendingIntent);
                 alarmClockNotInstalled();
             }
@@ -98,25 +96,21 @@ public class MainActivity extends AppCompatActivity {
         alarmTextView.setText(alarmText);
     }
 
-    private void alarmClockInstalled()
-    {
+    private void alarmClockInstalled() {
         startAlarmClockBtn.setEnabled(false);
         stopAlarmClockBtn.setEnabled(true);
         String hourString = String.valueOf(hour);
         String minuteString = String.valueOf(minute);
-        if(minute < 10)
-        {
+        if(minute < 10) {
             minuteString = "0".concat(minuteString);
         }
-        if(hour < 10)
-        {
+        if(hour < 10) {
             hourString = "0".concat(hourString);
         }
         setAlarmClockTextView("Будильник установлен на " + hourString + ":" + minuteString);
     }
 
-    private void alarmClockNotInstalled()
-    {
+    private void alarmClockNotInstalled() {
         startAlarmClockBtn.setEnabled(true);
         stopAlarmClockBtn.setEnabled(false);
         setAlarmClockTextView("Установите время на будильнике");
@@ -150,12 +144,10 @@ public class MainActivity extends AppCompatActivity {
 
         hour = settingPreferences.getInt(APP_PREFERENCES_HOUR, -1);
         minute = settingPreferences.getInt(APP_PREFERENCES_MINUTE, -1);
-        if(hour == -1 || minute == -1)
-        {
+        if(hour == -1 || minute == -1) {
             alarmClockNotInstalled();
         }
-        else
-        {
+        else {
             alarmClockInstalled();
         }
     }
