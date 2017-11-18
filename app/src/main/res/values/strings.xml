@@ -3,4 +3,9 @@
     <string name="setup_alarm_clock_btn_text">Включить</string>
     <string name="cancel_alarm_clock_btn_text">Выключить</string>
     <string name="alarm_clock_text_view">Установите время на будильнике</string>
+    <string name="settings_btn_text">Настройки</string>
+    <string name="settings_notification_text">Текст:</string>
+    <string name="settings_notification_title">Заголовок:</string>
+    <string name="settings_save_btn_text">Применить</string>
+    <string name="settings_cancel_btn_text">Отменить</string>
 </resources>

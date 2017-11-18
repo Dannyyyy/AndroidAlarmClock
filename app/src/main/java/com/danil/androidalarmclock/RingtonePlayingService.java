@@ -4,7 +4,9 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.IBinder;
@@ -12,11 +14,20 @@ import android.support.annotation.Nullable;
 
 import java.util.Random;
 
+import static com.danil.androidalarmclock.MainActivity.APP_PREFERENCES;
+import static com.danil.androidalarmclock.MainActivity.APP_PREFERENCES_TEXT;
+import static com.danil.androidalarmclock.MainActivity.APP_PREFERENCES_TITLE;
+
 public class RingtonePlayingService extends Service {
 
     private boolean isInstalled;
     MediaPlayer mediaPlayer;
     private int startId;
+
+    private SharedPreferences settingPreferences;
+
+    private final String defaultTitle = "Будильник";
+    private final String defaultText = "Пора просыпаться!";
 
     @Nullable
     @Override
@@ -26,20 +37,26 @@ public class RingtonePlayingService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        settingPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        final String title = settingPreferences.getString(APP_PREFERENCES_TITLE, defaultTitle);
+        final String text = settingPreferences.getString(APP_PREFERENCES_TEXT, defaultText);
+
         final NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final Intent activityIntent = new Intent(this.getApplicationContext(), MainActivity.class);
         final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, activityIntent, 0);
         final Notification notification  = new Notification.Builder(this)
-                .setContentTitle("Подъем!!!")
-                .setContentText("Пора учиться,...!!!")
+                .setContentTitle(title)
+                .setContentText(text)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
+                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000})
                 .build();
         notification.ledARGB = Color.BLUE;
         notification.ledOffMS = 1000;
         notification.ledOnMS = 1000;
         notification.flags = notification.flags | Notification.FLAG_SHOW_LIGHTS;
+
 
         final String state = intent.getStringExtra("extra");
 

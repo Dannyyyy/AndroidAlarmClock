@@ -19,12 +19,15 @@ public class MainActivity extends AppCompatActivity {
     AlarmManager alarmManager;
     private PendingIntent pendingIntent;
 
+    private final int firstActivityRequestCode = 1;
+
     private SharedPreferences settingPreferences;
 
     private TimePicker alarmTimePicker;
     private TextView alarmTextView;
     private Button stopAlarmClockBtn;
     private Button startAlarmClockBtn;
+    private Button settingsBtn;
 
     private int hour = -1;
     private int minute = -1;
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES = "mysettings";
     public static final String APP_PREFERENCES_HOUR = "hour";
     public static final String APP_PREFERENCES_MINUTE = "minute";
+    public static final String APP_PREFERENCES_TITLE = "title";
+    public static final String APP_PREFERENCES_TEXT = "text";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +95,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        settingsBtn = (Button) findViewById(R.id.btnSettings);
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoSettingsActivity();
+            }
+        });
     }
+
+    public void gotoSettingsActivity(){
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) { }
 
     private void setAlarmClockTextView(String alarmText) {
         alarmTextView.setText(alarmText);
