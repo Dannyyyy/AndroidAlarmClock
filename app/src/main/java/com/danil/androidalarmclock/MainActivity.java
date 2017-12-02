@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView alarmTextView;
     private Button stopAlarmClockBtn;
     private Button startAlarmClockBtn;
-    private Button settingsBtn;
+    private ImageButton settingsBtn;
 
     private int hour = -1;
     private int minute = -1;
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        settingsBtn = (Button) findViewById(R.id.btnSettings);
+        settingsBtn = (ImageButton) findViewById(R.id.btnSettings);
         settingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
