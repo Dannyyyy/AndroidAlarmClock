@@ -11,8 +11,8 @@ import java.util.Calendar;
 
 import static android.content.Context.ALARM_SERVICE;
 import static com.danil.androidalarmclock.MainActivity.APP_PREFERENCES;
-import static com.danil.androidalarmclock.MainActivity.APP_PREFERENCES_HOUR;
-import static com.danil.androidalarmclock.MainActivity.APP_PREFERENCES_MINUTE;
+import static com.danil.androidalarmclock.MainActivity.APP_PREFERENCES_FIRST_ALARM_HOUR;
+import static com.danil.androidalarmclock.MainActivity.APP_PREFERENCES_FIRST_ALARM_MINUTE;
 
 public class RestartAlarmsReceiver extends BroadcastReceiver {
 
@@ -22,8 +22,8 @@ public class RestartAlarmsReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())) {
             settingPreferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-            final int hour = settingPreferences.getInt(APP_PREFERENCES_HOUR, -1);
-            final int minute = settingPreferences.getInt(APP_PREFERENCES_MINUTE, -1);
+            final int hour = settingPreferences.getInt(APP_PREFERENCES_FIRST_ALARM_HOUR, -1);
+            final int minute = settingPreferences.getInt(APP_PREFERENCES_FIRST_ALARM_MINUTE, -1);
             if(hour != -1 && minute != -1) {
                 final AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
                 final Intent alarmIntent = new Intent(context, AlarmReceiver.class);

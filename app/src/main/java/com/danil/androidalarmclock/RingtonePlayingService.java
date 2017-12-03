@@ -40,10 +40,10 @@ public class RingtonePlayingService extends Service {
         settingPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         final String title = settingPreferences.getString(APP_PREFERENCES_TITLE, defaultTitle);
         final String text = settingPreferences.getString(APP_PREFERENCES_TEXT, defaultText);
-
+        final int num = intent.getIntExtra("number", 0);
         final NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final Intent activityIntent = new Intent(this.getApplicationContext(), MainActivity.class);
-        final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, activityIntent, 0);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(this, num, activityIntent, 0);
         final Notification notification  = new Notification.Builder(this)
                 .setContentTitle(title)
                 .setContentText(text)

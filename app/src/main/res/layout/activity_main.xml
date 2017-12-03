@@ -12,45 +12,64 @@
         android:layout_alignParentTop="true" />
 
     <Button
+        android:id="@+id/start_first_alarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/start_alarm"
-        android:text="@string/setup_alarm_clock_btn_text"
-        android:layout_below="@+id/alarmTimePicker"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="63dp" />
+        android:layout_below="@+id/firstAlarmText"
+        android:layout_alignLeft="@id/alarmTimePicker"
+        android:text="@string/setup_alarm_clock_btn_text" />
 
     <Button
+        android:id="@+id/stop_first_alarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/stop_alarm"
-        android:text="@string/cancel_alarm_clock_btn_text"
-        android:layout_below="@+id/alarmTimePicker"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="63dp" />
+        android:layout_below="@+id/firstAlarmText"
+        android:layout_alignRight="@id/alarmTimePicker"
+        android:text="@string/cancel_alarm_clock_btn_text" />
 
     <TextView
+        android:id="@+id/firstAlarmText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/alarmText"
-        android:text="@string/alarm_clock_text_view"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/alarmTimePicker"
         android:layout_centerHorizontal="true"
-        android:gravity="bottom"
-        android:layout_marginBottom="25dp" />
+        android:text="@string/alarm_clock_text_view"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ImageButton
         android:id="@+id/btnSettings"
         style="@style/Widget.AppCompat.ActionButton.Overflow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/alarmText"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="26dp"
         android:src="@drawable/settings"
         android:text="@string/settings_btn_text" />
+
+    <TextView
+        android:id="@+id/secondAlarmText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/start_first_alarm"
+        android:layout_centerHorizontal="true"
+        android:text="@string/alarm_clock_text_view"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/start_second_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/secondAlarmText"
+        android:layout_alignLeft="@id/alarmTimePicker"
+        android:text="@string/setup_alarm_clock_btn_text" />
+
+    <Button
+        android:id="@+id/stop_second_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/secondAlarmText"
+        android:layout_alignRight="@id/alarmTimePicker"
+        android:layout_marginRight="5dp"
+        android:text="@string/cancel_alarm_clock_btn_text" />
 
 </RelativeLayout>
